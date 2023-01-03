@@ -1,8 +1,19 @@
 import React, {useRef, useState} from "react";
-import {useClickAway, useKeyPressEvent, useWindowScroll, useWindowSize} from "react-use";
+
+import {
+  useClickAway,
+  useCopyToClipboard,
+  useKeyPressEvent,
+  useWindowScroll, 
+  useWindowSize
+} from "react-use";
+
 import "./app.css";
 
 export default function App() {
+  const [text, setText] = useState("");
+  const [copyState, setCopyState] = useCopyToClipboard();
+
   const popupRef = useRef(null);
 
   const [count, setCount] = useState(0);
@@ -28,6 +39,18 @@ export default function App() {
       <h3>Window size: {`${width} x ${height}`}</h3>
 
       <div ref={popupRef} className="popup"></div>
+
+      <br />
+
+      <input value={text} onChange={e => setText(e.target.value)} />
+      <button type="button" onClick={() => setCopyState(text)}>
+        Copy Text
+      </button>
+
+      <br />
+
+      {copyState.error && <span>{copyState.error.message}</span>}
+      {copyState.value && <span>Copied {copyState.value}</span>}
     </div>
   );
 }
