@@ -2,8 +2,12 @@ import React, {useState} from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+import "./src/utils/i18n.tsx";
+
+import { useTranslation } from "react-i18next";
 
 export default function App() {
+  const {t, i18n} = useTranslation();
   const [active, setActive] = useState("en");
 
   return (
@@ -25,22 +29,22 @@ export default function App() {
 
           <View style={styles.loginHeader}>
             <MaterialIcons name="login" size={20} color="#FFC632"/>
-            <Text style={styles.loginHeaderTitle}>Faça seu Login</Text>
+            <Text style={styles.loginHeaderTitle}>{t("Faça seu Login")}</Text>
           </View>
 
-          <Text style={styles.subTitle}>Entre com suas informações de login.</Text>
+          <Text style={styles.subTitle}>{t("Entre com suas informações de login.")}</Text>
           <View style={{marginTop: 10}}>
             <Text style={styles.subTitle}>E-mail</Text>
-            <TextInput placeholder="Digite seu e-mail" style={styles.input} placeholderTextColor="#AFB6C2" />
+            <TextInput placeholder={t("Digite seu e-mail")} style={styles.input} placeholderTextColor="#AFB6C2" />
           </View>
 
           <View style={{marginTop: 10}}>
-            <Text style={styles.subTitle}>Senha</Text>
-            <TextInput placeholder="Digite sua senha" style={styles.input} placeholderTextColor="#AFB6C2" />
+            <Text style={styles.subTitle}>{t("Senha")}</Text>
+            <TextInput placeholder={t("Digite sua senha")} style={styles.input} placeholderTextColor="#AFB6C2" />
           </View>
 
           <TouchableOpacity activeOpacity={0.8} style={styles.button}>
-            <Text style={styles.textButton}>Entrar</Text>
+            <Text style={styles.textButton}>{t("Entrar")}</Text>
           </TouchableOpacity>
         </View>
       </View>
