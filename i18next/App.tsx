@@ -1,14 +1,26 @@
-import React from "react";
+import React, {useState} from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
 export default function App() {
+  const [active, setActive] = useState("en");
+
   return (
     <>
       <StatusBar translucent={false} backgroundColor="#191816" style='light'/>
       <View style={styles.container}>
         <View style={styles.modal}>
+          <View style={styles.langWrapper}>
+            <TouchableOpacity onPress={() => setActive("en")} activeOpacity={0.8} style={active === "en" ? styles.langButtonActive : styles.langButton}>
+              <Text style={styles.LangButtonText}>Inglês</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => setActive("pt")} activeOpacity={0.8} style={active === "pt" ? styles.langButtonActive : styles.langButton}>
+              <Text style={styles.LangButtonText}>Português - Brasil</Text>
+            </TouchableOpacity>
+          </View>
+
           <Text style={styles.title}>i18Next</Text>
 
           <View style={styles.loginHeader}>
@@ -45,7 +57,7 @@ const styles = StyleSheet.create({
   },
   modal:{
     width: "90%",
-    height: 400,
+    height: 460,
     backgroundColor: "#24221F",
     borderRadius: 8,
     padding: 10,
@@ -98,5 +110,36 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#191816",
     fontSize: 16,
+  },
+  langWrapper: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 20,
+    marginTop: 12,
+    marginBottom: 12
+  },
+  langButton: {
+    flex: 1,
+    margin: 4,
+    height: 30,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 4,
+    borderColor: "#AFB6C2",
+    borderWidth: 1,
+  },
+  LangButtonText: {
+    color: "#FFFFFF"
+  },
+  langButtonActive: {
+    backgroundColor: "#FFC632",
+    flex: 1,
+    margin: 4,
+    height: 30,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 4,
+    borderWidth: 0,
   }
 });
