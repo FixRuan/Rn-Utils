@@ -16,7 +16,25 @@ export default function App() {
 
     await notifee.displayNotification({
       id: '1',
-      title: 'notification',
+      title: '<strong>notification<strong>',
+      body: 'notification 1',
+      android: { channelId }
+    })
+  }
+
+  async function updateNotification() {
+    await notifee.requestPermission();
+
+    const channelId = await notifee.createChannel({
+      id: 'test',
+      name: 'sales',
+      vibration: true,
+      importance: AndroidImportance.HIGH
+    });
+
+    await notifee.displayNotification({
+      id: '1',
+      title: '<strong>notification updated<strong>',
       body: 'notification 1',
       android: { channelId }
     })
@@ -46,6 +64,7 @@ export default function App() {
       <Text>Notifee</Text>
 
       <Button title="Enviar Notificação" onPress={displayNotification} />
+      <Button title="Enviar Notificação" onPress={updateNotification} />
     </View>
   );
 }
