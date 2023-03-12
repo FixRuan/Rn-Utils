@@ -1,18 +1,23 @@
 import { useEffect } from 'react';
-import notifee, { AndroidImportance, EventType } from "@notifee/react-native";
+import notifee, { AndroidImportance, EventType, TimestampTrigger, TriggerType } from "@notifee/react-native";
 import { Button, Text, View } from 'react-native';
 
 export default function App() {
-
-  async function displayNotification() {
-    await notifee.requestPermission();
-
+  async function createChannelId() {
     const channelId = await notifee.createChannel({
       id: 'test',
       name: 'sales',
       vibration: true,
       importance: AndroidImportance.HIGH
     });
+
+    return channelId
+  }
+
+  async function displayNotification() {
+    await notifee.requestPermission();
+
+    const channelId = await createChannelId();
 
     await notifee.displayNotification({
       id: '1',
@@ -25,12 +30,7 @@ export default function App() {
   async function updateNotification() {
     await notifee.requestPermission();
 
-    const channelId = await notifee.createChannel({
-      id: 'test',
-      name: 'sales',
-      vibration: true,
-      importance: AndroidImportance.HIGH
-    });
+    const channelId = await createChannelId();
 
     await notifee.displayNotification({
       id: '1',
@@ -38,6 +38,28 @@ export default function App() {
       body: 'notification 1',
       android: { channelId }
     })
+  }
+
+  async function cancelNotification() {
+    await notifee.cancelNotification('1');
+  }
+
+  async function scheduleNotification() {
+    const channelId = await createChannelId();
+
+    const date = new Date(Date.now());
+    date.setMinutes(date.getMinutes() + 1);
+
+    const trigger: TimestampTrigger = {
+      type: TriggerType.TIMESTAMP,
+      timestamp: date.getTime()
+    }
+
+    await notifee.createTriggerNotification({
+      title: 'Notificação agendada',
+      body: 'Essa é uma notificação agendada',
+      android: { channelId },
+    }, trigger)
   }
 
   useEffect(() => {
@@ -64,7 +86,9 @@ export default function App() {
       <Text>Notifee</Text>
 
       <Button title="Enviar Notificação" onPress={displayNotification} />
-      <Button title="Enviar Notificação" onPress={updateNotification} />
+      <Button title="Atualizar Notificação" onPress={updateNotification} />
+      <Button title="Cancelar Notificação" onPress={cancelNotification} />
+      <Button title="Agendar Notificação" onPress={scheduleNotification} />
     </View>
   );
 }
