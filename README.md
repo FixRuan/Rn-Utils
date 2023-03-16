@@ -5,7 +5,8 @@ Repository to learn React Native specific libs
 - [x] RnSkia
 - [x] i18next
 - [x] reactUse
-- [ ] Notifee
+- [x] Notifee
+- [ ] Reanimated
 
 <br />
 
