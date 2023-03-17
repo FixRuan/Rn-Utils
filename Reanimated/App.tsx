@@ -1,10 +1,11 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { Home } from "./src/screens/home";
 
 export default function App() {
   return (
-    <View>
-      <Text>!</Text>
-    </View>
+    <GestureHandlerRootView>
+      <Home />
+    </GestureHandlerRootView>
   );
 }
