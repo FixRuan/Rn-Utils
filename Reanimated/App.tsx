@@ -4,7 +4,7 @@ import { Home } from "./src/screens/home";
 
 export default function App() {
   return (
-    <GestureHandlerRootView>
+    <GestureHandlerRootView style={{ flex: 1 }}>
       <Home />
     </GestureHandlerRootView>
   );
