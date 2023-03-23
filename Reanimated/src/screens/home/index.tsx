@@ -1,5 +1,5 @@
 import React from "react";
-import Animated, { useAnimatedStyle, useSharedValue } from "react-native-reanimated";
+import Animated, { Easing, useAnimatedStyle, useSharedValue, withTiming, withSpring } from "react-native-reanimated";
 import { Button, View } from "react-native";
 import { styles } from "./styles";
 
@@ -14,9 +14,9 @@ export function Home() {
 
   function handleAnimation() {
     if (scale.value === 1) {
-      scale.value = 1.5;
+      scale.value = withTiming(1.5, { easing: Easing.bounce });
     } else {
-      scale.value = 1;
+      scale.value = withSpring(1);
     }
   }
 
