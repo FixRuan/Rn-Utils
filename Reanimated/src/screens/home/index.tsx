@@ -23,7 +23,19 @@ export function Home() {
 
   const onTap = Gesture
     .Tap()
+    .numberOfTaps(2)
     .onStart(() => console.log("Button pressed"));
+
+  const onLongPress = Gesture
+    .LongPress()
+    .minDuration(200)
+    .onStart(() => {
+      scale.value = withTiming(1.5);
+    })
+    .onEnd((event) => {
+      scale.value = withTiming(1);
+      console.log(event.duration);
+    });
 
   function handleAnimation() {
     if (scale.value === 1) {
@@ -35,7 +47,7 @@ export function Home() {
 
   return (
     <View style={styles.container}>
-      <GestureDetector gesture={onTap}>
+      <GestureDetector gesture={onLongPress}>
         <Animated.View style={[styles.element, animatedStyle]} />
       </GestureDetector>
 
