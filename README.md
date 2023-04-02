@@ -6,7 +6,7 @@ Repository to learn React Native specific libs
 - [x] i18next
 - [x] reactUse
 - [x] Notifee
-- [ ] Reanimated
+- [x] Reanimated
 
 <br />
 
